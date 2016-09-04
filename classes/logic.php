@@ -71,9 +71,9 @@ class Logic
 
         // csrfチェック & メール送信
         if ($this->chkCsrf() && $this->sendMail()) {
-//            $this->redirect('complete');
+            $this->redirect('complete');
         } else {
-//            $this->redirect('input');
+            $this->redirect('input');
         }
     }
 
@@ -167,7 +167,6 @@ class Logic
     }
 
     private function redirect($action = 'input') {    
-//        $url = 'Location: https://contact-yyoshida.c9users.io/index.php?action=' . $action;    
         $url = 'Location: https://vast-lake-80291.herokuapp.com/index.php?action=' . $action;    
 
         header($url, true, 303);    
