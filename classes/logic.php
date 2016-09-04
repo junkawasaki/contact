@@ -167,7 +167,9 @@ class Logic
     }
 
     private function redirect($action = 'input') {    
-        $url = 'Location: https://contact-yyoshida.c9users.io/index.php?action=' . $action;    
+//        $url = 'Location: https://contact-yyoshida.c9users.io/index.php?action=' . $action;    
+        $url = 'Location: https://vast-lake-80291.herokuapp.com/index.php?action=' . $action;    
+
         header($url, true, 303);    
     }
 
