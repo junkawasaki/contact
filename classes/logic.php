@@ -190,12 +190,12 @@ class Logic
     private function get_content($input = null) {
         $title = !empty(\Classes\Items::$title[$input->title]) ? \Classes\Items::$title[$input->title] : '';
 
-        $content = "お問い合わせフォーム\n\n"
-                 . "件名：{$title}\n"
-                 . "お名前：{$input->name}\n"
-                 . "メールアドレス：{$input->address}\n"
-                 . "電話番号：{$input->tel}\n"
-                 . "お問い合わせ内容：{$input->content}\n";
+        $content = "お問い合わせフォーム" . PHP_EOL
+                 . "件名：{$title}" . PHP_EOL
+                 . "お名前：{$input->name}" . PHP_EOL
+                 . "メールアドレス：{$input->address}" . PHP_EOL
+                 . "電話番号：{$input->tel}" . PHP_EOL
+                 . "お問い合わせ内容：{$input->content}" . PHP_EOL;
 
         return $content;
     }    
