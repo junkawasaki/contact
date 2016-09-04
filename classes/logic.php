@@ -71,9 +71,9 @@ class Logic
 
         // csrfチェック & メール送信
         if ($this->chkCsrf() && $this->sendMail()) {
-            $this->redirect('complete');
+//            $this->redirect('complete');
         } else {
-            $this->redirect('input');
+//            $this->redirect('input');
         }
     }
 
