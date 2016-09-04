@@ -6,6 +6,12 @@ class Items
     // 管理者宛てメールアドレス
     const ADMIN_ADDRESS = "brown.toy.poodle@gmail.com";
     
+    private static $title = array(
+        1 => 'ご意見',
+        2 => 'ご感想',
+        3 => 'その他',
+    );
+
     // フォーム項目
     public static $items = [
         'title' => [

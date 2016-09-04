@@ -148,13 +148,21 @@ class Logic
     }
 
     private function sendMail() {
+        $input = $this->sess->get('input');
 
-        $from = new \SendGrid\Email(null, "test@example.com");
-        $subject = "Hello World from the SendGrid PHP Library!";
-        $to = new \SendGrid\Email(null, "naka_tani_tora@yahoo.co.jp");
-        $content = new \SendGrid\Content("text/plain", "Hello, Email!");
+//        $from = new \SendGrid\Email(null, "test@example.com");
+        $from = new \SendGrid\Email(null, $input->address);
+
+        $subject = "お問い合わせフォーム";
+
+        $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
+
+//        $content = new \SendGrid\Content("text/plain", "Hello, Email!");
+        $content = new \SendGrid\Content("text/plain", $this->get_content($input));
+
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
 
+        // herokuの環境変数からAPIキーを取得
         $apiKey = getenv('SENDGRID_API_KEY');
         $sg = new \SendGrid($apiKey);
 
@@ -177,4 +185,17 @@ class Logic
         $twig = new \Twig_Environment($loader);
         return $twig->loadTemplate($file);
     }
+
+    private function get_content($input = null) {
+        $title = !empty(\Classes\Items::$title[$input->title]) ? \Classes\Items::$title[$input->title] : '';
+
+        $content = "お問い合わせフォーム\n\n"
+                 . "件名：{$title}\n"
+                 . "お名前：{$input->name}\n"
+                 . "メールアドレス：{$input->address}\n"
+                 . "電話番号：{$input->address}\n"
+                 . "お問い合わせ内容：{$input->address}\n";
+
+        return $content;
+    }    
 }
