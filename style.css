@@ -1,0 +1,20 @@
+/* Account for fixed navbar */
+body {
+  min-width: 970px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+    
+}
+
+.container {
+  width: 970px;
+  max-width: none !important;
+}
+
+.form-horizontal {
+    padding-top: 20px;
+}
+
+
+
+
