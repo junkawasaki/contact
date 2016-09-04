@@ -4,7 +4,7 @@ namespace Classes;
 class Items
 {
     // 管理者宛てメールアドレス
-    const ADMIN_ADDRESS = "brown.toy.poodle@gmail.com";
+    const ADMIN_ADDRESS = "naka_tani_tora@yahoo.co.jp";
     
     public static $title = array(
         1 => 'ご意見',

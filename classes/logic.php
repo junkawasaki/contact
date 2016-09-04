@@ -194,8 +194,8 @@ class Logic
                  . "件名：{$title}\n"
                  . "お名前：{$input->name}\n"
                  . "メールアドレス：{$input->address}\n"
-                 . "電話番号：{$input->address}\n"
-                 . "お問い合わせ内容：{$input->address}\n";
+                 . "電話番号：{$input->tel}\n"
+                 . "お問い合わせ内容：{$input->content}\n";
 
         return $content;
     }    
