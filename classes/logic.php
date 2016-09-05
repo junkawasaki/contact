@@ -169,7 +169,7 @@ class Logic
              ->setSubject("お問い合わせフォーム")
              ->addTo($input->address)
              ->addTo(\Classes\Items::ADMIN_ADDRESS)
-             ->setHTML($this->get_content($input))
+             ->setHTML($this->get_content($input));
 
         // herokuの環境変数からAPIキーを取得
         $apiKey = getenv('SENDGRID_API_KEY');
