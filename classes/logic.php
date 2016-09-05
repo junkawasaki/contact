@@ -160,8 +160,8 @@ class Logic
         $subject = "お問い合わせフォーム";
 
         $to = [];
-        $to[] = new \SendGrid\Email(null, $input->address);
         $to[] = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
+        $to[] = new \SendGrid\Email(null, $input->address);
 
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
