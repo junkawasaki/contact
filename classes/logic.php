@@ -6,11 +6,13 @@ class Logic
     private $sess = null;
 
     public function __construct() {
+        // 設定値の外出し
         $this->sess = new \Classes\Session("contact");
     }
 
     // 入力画面の初期化描画
-    public function init() {
+//    public function init() {
+    public function input_init() {
         $this->sess->start();
         // csrfトークンを初期化するためにsession_idを変更する
         $this->sess->regenerate();
@@ -24,14 +26,17 @@ class Logic
     }
 
     // 入力画面の再描画
-    public function input() {
+//    public function input() {
+//    public function input_rerun() {
+    public function to_input() {
+        // セッションチェック
         $this->chkSession();
         $this->sess->start();
 
         // data
         $data['input'] = $this->sess->get('input');
         $data['error'] = $this->sess->get('error');
-        $data['csrf_token'] = \Classes\CsrfValidator::generate();
+        $data['token'] = \Classes\CsrfValidator::generate();
 
         // template
         $template = $this->get_template('input.php');
@@ -39,20 +44,24 @@ class Logic
     }
     
     // 入力画面からsubmit
-    public function submit() {
+    public function input_submit() {
+        // セッションチェック
         $this->chkSession();
         $this->sess->start();
 
         // 入力チェック & CSRFチェック
         if ($this->chkInput() && $this->chkCsrf()) {
-            $this->redirect('submit');
+//            $this->redirect('submit');
+            $this->redirect('to_confirm');
         } else {
-            $this->redirect('input');
+//            $this->redirect('input');
+            $this->redirect('to_input');
         }
     }
 
-    // 確認画面描画
-    public function confirm() {
+//    public function confirm() {
+    public function to_confirm() {
+        // セッションチェック
         $this->chkSession();
         $this->sess->start();
 
@@ -65,20 +74,25 @@ class Logic
         echo $template->render($data);
     }    
 
-    public function complete() {
+    // 確認画面からsubmit
+    public function confirm_submit() {
+        // セッションチェック
         $this->chkSession();
         $this->sess->start();
 
         // csrfチェック & メール送信
         if ($this->chkCsrf() && $this->sendMail()) {
-            $this->redirect('complete');
+//            $this->redirect('complete');
+            $this->redirect('to_complete');
         } else {
-            $this->redirect('input');
+//            $this->redirect('input');
+            $this->redirect('to_input');
         }
     }
 
     // 完了画面描画
-    public function end() {
+//    public function end() {
+    public function to_end() {
         $template = $this->get_template('end.php');
         echo $template->render([]);
     }
@@ -150,16 +164,10 @@ class Logic
     private function sendMail() {
         $input = $this->sess->get('input');
 
-//        $from = new \SendGrid\Email(null, "test@example.com");
         $from = new \SendGrid\Email(null, $input->address);
-
         $subject = "お問い合わせフォーム";
-
         $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
-
-//        $content = new \SendGrid\Content("text/plain", "Hello, Email!");
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
-
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
 
         // herokuの環境変数からAPIキーを取得
@@ -175,7 +183,6 @@ class Logic
     }
 
     private function redirect($action = 'input') {    
-//        $url = 'Location: https://vast-lake-80291.herokuapp.com/index.php?action=' . $action;    
         $url = 'Location: /index.php?action=' . $action;    
 
         header($url, true, 303);    
@@ -190,12 +197,12 @@ class Logic
     private function get_content($input = null) {
         $title = !empty(\Classes\Items::$title[$input->title]) ? \Classes\Items::$title[$input->title] : '';
 
-        $content = "お問い合わせフォーム" . PHP_EOL
-                 . "件名：{$title}" . PHP_EOL
-                 . "お名前：{$input->name}" . PHP_EOL
-                 . "メールアドレス：{$input->address}" . PHP_EOL
-                 . "電話番号：{$input->tel}" . PHP_EOL
-                 . "お問い合わせ内容：{$input->content}" . PHP_EOL;
+        $content = "お問い合わせフォーム"
+                 . "件名：{$title}"
+                 . "お名前：{$input->name}"
+                 . "メールアドレス：{$input->address}"
+                 . "電話番号：{$input->tel}"
+                 . "お問い合わせ内容：{$input->content}";
 
         return $content;
     }    
