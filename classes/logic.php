@@ -156,16 +156,20 @@ class Logic
     private function sendMail() {
         $input = $this->sess->get('input');
 
+/*
         $from = new \SendGrid\Email(null, $input->address);
         $subject = "お問い合わせフォーム";
-//        $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS.",".$input->address);
         $to = new \SendGrid\Email(null, $input->address);
         $bcc = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
-
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
-        $mail = new \SendGrid\Mail($from, $subject, $to, $content, $bcc);
-
-//        $mail->personalization[0]->addTo($to);
+        $mail = new \SendGrid\Mail($from, $subject, $to, $content);
+*/
+        $mail = new \SendGrid\Mail();
+        $mail->setFrom($input->address)
+             ->setSubject("お問い合わせフォーム")
+             ->addTo($input->address)
+             ->addTo(\Classes\Items::ADMIN_ADDRESS)
+             ->setHTML($this->get_content($input))
 
         // herokuの環境変数からAPIキーを取得
         $apiKey = getenv('SENDGRID_API_KEY');
