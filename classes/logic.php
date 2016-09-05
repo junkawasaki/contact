@@ -163,7 +163,7 @@ class Logic
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
 
-        $to = new Email(null, $input->address);
+        $to = new \SendGrid\Email(null, $input->address);
         $mail->personalization[0]->addTo($to);
 
         // herokuの環境変数からAPIキーを取得
