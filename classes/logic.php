@@ -158,12 +158,13 @@ class Logic
 
         $from = new \SendGrid\Email(null, $input->address);
         $subject = "お問い合わせフォーム";
-
 //        $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS.",".$input->address);
-        $to = new \SendGrid\Email(null, $input->address.",".\Classes\Items::ADMIN_ADDRESS);
-
+        $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
+
+        $to = new Email(null, $input->address);
+        $mail->personalization[0]->addTo($to);
 
         // herokuの環境変数からAPIキーを取得
         $apiKey = getenv('SENDGRID_API_KEY');
