@@ -164,7 +164,7 @@ class Logic
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
 */
-        $mail = new \SendGrid\Mail();
+        $mail = new \SendGrid\Email();
         $mail->setFrom($input->address);
         $mail->setSubject("お問い合わせフォーム");
         $mail->addTo($input->address);
