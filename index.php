@@ -5,43 +5,34 @@ $logic = new \Classes\Logic();
 if (!empty($_POST["action"])) {
     switch ($_POST["action"]) {
         case "input_submit":
-            // input.phpから遷移
-//            $logic->submit();
+            // input.phpからsubmit
             $logic->input_submit();
             break;
         case "confirm_submit":
-            // confirm.phpから遷移
-//            $logic->complete();
+            // confirm.phpからsubmit
             $logic->confirm_submit();
             break;
         default:
-//            $logic->input();
-//            $logic->input_rerun();
+            // 初期化input.phpへ遷移
             $logic->input_init();
             break;
     }
 } else if (!empty($_GET["action"])) {
     switch ($_GET["action"]) {
-//        case "submit":
         case "to_confirm":
             // confirm.phpへ遷移
-//            $logic->confirm();                        
             $logic->to_confirm();                        
             break;
-//        case "complete":
         case "to_complete":
-            // end.phpへ遷移
-//            $logic->end();                        
-            $logic->to_end();                        
+            // complete.phpへ遷移
+            $logic->to_complete();                        
             break;
         default:
-//            $logic->input();
-//            $logic->input_rerun();
-            $logic->to_input();
+            // 初期化input.phpへ遷移
+            $logic->input_init();
             break;
     }
 } else {
-    // input.phpへ遷移
-//    $logic->init();
+    // 初期化input.phpへ遷移
     $logic->input_init();
 }

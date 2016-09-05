@@ -11,7 +11,6 @@ class Logic
     }
 
     // 入力画面の初期化描画
-//    public function init() {
     public function input_init() {
         $this->sess->start();
         // csrfトークンを初期化するためにsession_idを変更する
@@ -26,8 +25,6 @@ class Logic
     }
 
     // 入力画面の再描画
-//    public function input() {
-//    public function input_rerun() {
     public function to_input() {
         // セッションチェック
         $this->chkSession();
@@ -51,15 +48,13 @@ class Logic
 
         // 入力チェック & CSRFチェック
         if ($this->chkInput() && $this->chkCsrf()) {
-//            $this->redirect('submit');
             $this->redirect('to_confirm');
         } else {
-//            $this->redirect('input');
             $this->redirect('to_input');
         }
     }
 
-//    public function confirm() {
+    // 確認画面の描画
     public function to_confirm() {
         // セッションチェック
         $this->chkSession();
@@ -82,18 +77,15 @@ class Logic
 
         // csrfチェック & メール送信
         if ($this->chkCsrf() && $this->sendMail()) {
-//            $this->redirect('complete');
             $this->redirect('to_complete');
         } else {
-//            $this->redirect('input');
             $this->redirect('to_input');
         }
     }
 
-    // 完了画面描画
-//    public function end() {
-    public function to_end() {
-        $template = $this->get_template('end.php');
+    // 完了画面の描画
+    public function to_complete() {
+        $template = $this->get_template('complete.php');
         echo $template->render([]);
     }
 
@@ -166,7 +158,11 @@ class Logic
 
         $from = new \SendGrid\Email(null, $input->address);
         $subject = "お問い合わせフォーム";
-        $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
+
+        $to = [];
+        $to[] = new \SendGrid\Email(null, $input->address);
+        $to[] = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
+
         $content = new \SendGrid\Content("text/plain", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
 
@@ -184,7 +180,6 @@ class Logic
 
     private function redirect($action = 'input') {    
         $url = 'Location: /index.php?action=' . $action;    
-
         header($url, true, 303);    
     }
 
