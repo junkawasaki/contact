@@ -140,6 +140,8 @@ class Logic
 
         }
 
+        $input->title_jp = \Classes\Itmes::$title_jp[$input->title];
+
         $this->sess->set('input', $input);
         $this->sess->set('error', $error);
         
@@ -189,13 +191,11 @@ class Logic
     }
 
     private function get_content($input = null) {
-        $title = !empty(\Classes\Items::$title[$input->title]) ? \Classes\Items::$title[$input->title] : '';
-
-        $content = "お問い合わせフォーム"
-                 . "件名：{$title}"
-                 . "お名前：{$input->name}"
-                 . "メールアドレス：{$input->address}"
-                 . "電話番号：{$input->tel}"
+        $content = "お問い合わせフォーム" . PHP_EOL
+                 . "件名：{$input->title_jp}" . PHP_EOL
+                 . "お名前：{$input->name}" . PHP_EOL
+                 . "メールアドレス：{$input->address}" . PHP_EOL
+                 . "電話番号：{$input->tel}" . PHP_EOL
                  . "お問い合わせ内容：{$input->content}";
 
         return $content;

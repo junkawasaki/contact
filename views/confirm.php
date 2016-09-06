@@ -15,7 +15,7 @@
         <input type="hidden" name="action" value="confirm_submit">
         <dl class="dl-horizontal">
           <dt>件名</dt>
-          <dd>{{ input.title|e }}</dd>
+          <dd>{{ input.title_jp|e }}</dd>
           <dt>お名前</dt>
           <dd>{{ input.name|e }}</dd>
           <dt>メールアドレス</dt>
