@@ -32,7 +32,7 @@ class Items
         ],
         'tel' => [
             'name_jp' => '電話番号',
-            'type' => 'int',
+            'type' => 'tel',
             'need' => true,
         ],    
         'content' => [

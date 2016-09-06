@@ -117,6 +117,12 @@ class Logic
             // 型チェック
             switch ($array["type"]) {
                 case "int":
+                    if (!filter_var($input->$name, FILTER_VALIDATE_INT)) {
+                        $error[$name] = $array["name_jp"] . "の値の種類が正しくありません";
+                        continue;
+                    }
+                    break;
+                case "tel":
                     if (!preg_match('/^[0-9]{2,4}-?[0-9]{2,4}-?[0-9]{3,4}$/', $number)) {
                         $error[$name] = $array["name_jp"] . "の値の種類が正しくありません";
                         continue;
