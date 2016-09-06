@@ -117,7 +117,7 @@ class Logic
             // 型チェック
             switch ($array["type"]) {
                 case "int":
-                    if (!is_int((int)$input->$name)) {
+                    if (!is_int($input->$name)) {
                         $error[$name] = $array["name_jp"] . "の値の種類が正しくありません";
                         continue;
                     }
