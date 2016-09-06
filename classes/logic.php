@@ -117,14 +117,13 @@ class Logic
             // 型チェック
             switch ($array["type"]) {
                 case "int":
-//                    if (!is_int($input->$name)) {
-                    if (!filter_var($input->$name, FILTER_VALIDATE_INT)) { 
+                    if (!preg_match('/^[0-9]{2,4}-?[0-9]{2,4}-?[0-9]{3,4}$/', $number)) {
                         $error[$name] = $array["name_jp"] . "の値の種類が正しくありません";
                         continue;
                     }
                     break;
                 case "mail":
-                    if (!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $input->$name)) {
+                    if (!filter_var($input->$name, FILTER_VALIDATE_EMAIL)) {
                         $error[$name] = $array['name_jp'] . "の値の種類が正しくありません";
                         continue;
                     }
