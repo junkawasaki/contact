@@ -167,7 +167,7 @@ class Logic
         $from = new \SendGrid\Email(null, $input->address);
         $subject = "お問い合わせフォーム";
         $to = new \SendGrid\Email(null, $input->address);
-        $content = new \SendGrid\Content("text/plain", $this->get_content($input));
+        $content = new \SendGrid\Content("text/html", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
         $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
         $mail->personalization[0]->addTo($to);
@@ -197,12 +197,14 @@ class Logic
     }
 
     private function get_content($input = null) {
-        $content = "お問い合わせフォーム" . PHP_EOL
-                 . "件名：{$input->title_jp}" . PHP_EOL
-                 . "お名前：{$input->name}" . PHP_EOL
-                 . "メールアドレス：{$input->address}" . PHP_EOL
-                 . "電話番号：{$input->tel}" . PHP_EOL
-                 . "お問い合わせ内容：{$input->content}";
+        $content = '<html>'
+                 . "<p>お問い合わせフォーム</p>" . PHP_EOL
+                 . "<p>件名：{$input->title_jp}</p>" . PHP_EOL
+                 . "<p>お名前：{$input->name}</p>" . PHP_EOL
+                 . "<p>メールアドレス：{$input->address}</p>" . PHP_EOL
+                 . "<p>電話番号：{$input->tel}</p>" . PHP_EOL
+                 . "<p>お問い合わせ内容：{$input->content}</p>" . PHP_EOL
+                 . '</html>';
 
         return $content;
     }    
