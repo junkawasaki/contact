@@ -170,9 +170,7 @@ class Logic
         $content = new \SendGrid\Content("text/html", $this->get_content($input));
         $mail = new \SendGrid\Mail($from, $subject, $to, $content);
         // herokuの環境変数から管理者メールアドレスを取得
-//        $to = new \SendGrid\Email(null, \Classes\Items::ADMIN_ADDRESS);
         $to = new \SendGrid\Email(null, getenv('ADMIN_ADDRESS'));
-//        $to = getenv('ADMIN_ADDRESS');
         $mail->personalization[0]->addTo($to);
 
         // herokuの環境変数からAPIキーを取得

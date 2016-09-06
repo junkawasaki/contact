@@ -3,15 +3,6 @@ namespace Classes;
 
 class Items
 {
-    // 管理者宛てメールアドレス
-    const ADMIN_ADDRESS = "naka_tani_tora@yahoo.co.jp";
-    
-    public static $title_jp = array(
-        1 => 'ご意見',
-        2 => 'ご感想',
-        3 => 'その他',
-    );
-
     // フォーム項目
     public static $items = [
         'title' => [
@@ -41,5 +32,12 @@ class Items
             'need' => true,
         ],
     ];
+
+    // 件名
+    public static $title_jp = array(
+        1 => 'ご意見',
+        2 => 'ご感想',
+        3 => 'その他',
+    );
 }
   
