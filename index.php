@@ -27,6 +27,11 @@ if (!empty($_POST["action"])) {
             // complete.phpへ遷移
             $logic->to_complete();                        
             break;
+        case "to_input":
+            // input.phpへ遷移
+            $logic->to_input();                        
+            break;
+
         default:
             // 初期化input.phpへ遷移
             $logic->input_init();
