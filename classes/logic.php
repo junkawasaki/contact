@@ -140,7 +140,7 @@ class Logic
 
         }
 
-        $input->title_jp = \Classes\Itmes::$title_jp[$input->title];
+        $input->title_jp = \Classes\Items::$title_jp[$input->title];
 
         $this->sess->set('input', $input);
         $this->sess->set('error', $error);
